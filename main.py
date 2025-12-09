@@ -1,15 +1,20 @@
-"""
-Administrador de Inventario de Tienda (Basado en Clases)
+from functions import choice
+from store import store
 
-Objetivo: Crear un programa interactivo que simule la gestión de productos en una pequeña tienda.
+st=store()
 
-Conocimientos a aplicar:
+opcion=1
 
-Clases: Definir clases, encapsulando la lógica.
+while opcion != 0:
+    print("------------------------------------")
+    print("---------MENU DE GESTION------------")
+    print("------------------------------------\n")
 
-Usar un diccionario dentro de la clase Tienda para guardar los productos (Clave: Nombre del producto, Valor: Cantidad disponible o Precio).
-
-Crear un menú interactivo CRUD
-
-Usar anidamiento de funciones
-"""
+    print("1-Agregar      --  3-Eliminar")
+    print("2-Mostrar \n")
+    print("0-Salir")
+    try:
+        opcion=int(input(""))
+        choice(opcion, st)
+    except ValueError as valor:
+        print("Opcion invalida! Elija su opcion entre 0 y 3")
