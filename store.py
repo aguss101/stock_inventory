@@ -6,18 +6,18 @@ class store:
         lista=self.productos
         for product in lista.items():
             print(f"- {product[0]}: {product[1]}")
-    def inventory(self):
-        return self.productos
+
+    def show_keys_stock(self):
+        return self.productos.keys()
+    
     def agregar_prudcto(self):
         self.productos.update(functions.agregar())
-        #.update(agregar())
-"""
-    def actualizar_producto(self):
-        actualizar()
-
-    def ver_productos(self):
-        ver()
-
-    def eliminar_productos(self):
-        eliminar()
-"""
+        print("Esta es su nueva lista: ")   
+        self.show_inventory()
+    def eliminar_productos(self, nombre):
+        try:
+            self.productos.pop(nombre)
+            return True
+        except KeyError as kk:
+            print("Error al intentar eliminar: ",kk)
+            return False

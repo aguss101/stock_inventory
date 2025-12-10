@@ -15,6 +15,7 @@ while opcion != 0:
     print("0-Salir")
     try:
         opcion=int(input(""))
-        choice(opcion, st)
+        choice(opcion)
     except ValueError as valor:
-        print("Opcion invalida! Elija su opcion entre 0 y 3")
+        print("Error! Elija su opcion entre 0 y 3")
+        opcion=input("\n...Presione cualquier tecla para continuar...")
