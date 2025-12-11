@@ -1,18 +1,14 @@
-from store import store
-
-st=store()
-
 def agregar():
-        try:
-            nombre=str(input("Nombre del producto: "))
-            stock=int(input("stock de producto: "))
-            if str(nombre) and int(stock):
-                print("\nEl producto: {} fue añadido a la lista".format(nombre))
-                return {nombre:stock}
-        except ValueError as value:
-            print("Error: El nombre debe ser unicamente texto y el stock expresado en unidades")
+    try:
+        nombre=str(input("Nombre del producto: ")).strip()
+        stock=int(input("stock de producto: "))
+        
+        print("\nEl producto: {} fue añadido a la lista".format(nombre))
+        return {nombre:stock}
+    except ValueError as value:
+        print("Error: El nombre debe ser unicamente texto y el stock expresado en unidades")
 
-def actualizar():
+def actualizar(st):
     try:
         st.show_inventory()
         lista_llaves = [key.lower() for key in st.show_keys_stock()]
@@ -43,7 +39,7 @@ def actualizar():
     except ValueError as value:
         print("Error: Exprese el stock en unidades")
 
-def eliminar():
+def eliminar(st):
     st.show_inventory()
     lista = [key.lower() for key in st.show_keys_stock()]
     listin = list(st.show_keys_stock()) 
@@ -77,7 +73,7 @@ def eliminar():
     except:
         print("Error, objeto no encontrado")
 
-def choice(opcion):
+def choice(opcion, st):
     if opcion >= 0 and opcion < 5:
         if opcion  == 1:
             st.agregar_prudcto()
@@ -85,9 +81,9 @@ def choice(opcion):
             st.show_inventory()
             opcion=input("\n...Presione cualquier tecla para continuar...")
         elif opcion == 3:
-            eliminar()
+            eliminar(st)
         elif opcion == 4:
-            actualizar()
+            actualizar(st)
         elif opcion == 0:
             print("Saliendo del programa...")
     else:
