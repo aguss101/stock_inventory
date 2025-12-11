@@ -10,7 +10,39 @@ def agregar():
                 print("\nEl producto: {} fue añadido a la lista".format(nombre))
                 return {nombre:stock}
         except ValueError as value:
-            print("Debe escribir como texto al nombre y al stock en unidades enteras")
+            print("Error: El nombre debe ser unicamente texto y el stock expresado en unidades")
+
+def actualizar():
+    try:
+        st.show_inventory()
+        lista_llaves = [key.lower() for key in st.show_keys_stock()]
+        lista = list(st.show_keys_stock())
+        nombre=str(input("Que producto de la lista desea actualizar?").strip())
+        nombre=nombre.lower()
+        if nombre in lista_llaves:
+            res=input("Desea actualizar el stock del producto: {}? \n y/n:".format(nombre.capitalize()))
+            if res == "y":
+                stock=int(input("Ingrese el stock actualizado del producto: "))
+                posicion=lista_llaves.index(nombre)
+                clave_final = lista[posicion]
+                if st.actualizar_productos(clave_final, stock):
+                    print(f"El producto: {nombre.capitalize()} actualizo su stock a: {stock}")
+                    print("Esta es tu nueva lista: \n")
+                    st.show_inventory()
+                    input("")
+                else:
+                    print("Error en la funcion")
+            elif res != "y" and res != "n":
+                print("Opcion invalida")
+                input("Serás redirigido al menu principal")
+            else:
+                print("Cancelaste la actualizacion del stock")
+                input("Serás redirigido al menu principal")
+        else:
+            print("No se encontró ese producto")
+    except ValueError as value:
+        print("Error: Exprese el stock en unidades")
+
 def eliminar():
     st.show_inventory()
     lista = [key.lower() for key in st.show_keys_stock()]
@@ -33,7 +65,7 @@ def eliminar():
                 print("Cancelaste el borrado")
                 input("Serás redirigido al menu principal")
         else:
-            input(f"No se encontro ese producto: {nombre}")
+            input(f"No se encontró ese producto: {nombre}")
     except TypeError as ty:
         print("Error de tipo: ",ty)
     except ValueError as valor:
@@ -46,7 +78,7 @@ def eliminar():
         print("Error, objeto no encontrado")
 
 def choice(opcion):
-    if opcion >= 0 and opcion < 4:
+    if opcion >= 0 and opcion < 5:
         if opcion  == 1:
             st.agregar_prudcto()
         elif opcion  == 2:
@@ -54,8 +86,10 @@ def choice(opcion):
             opcion=input("\n...Presione cualquier tecla para continuar...")
         elif opcion == 3:
             eliminar()
+        elif opcion == 4:
+            actualizar()
         elif opcion == 0:
             print("Saliendo del programa...")
     else:
-        print("Error! Elija su opcion entre 0 y 3")
+        print("Error! Elija su opcion entre 0 y 4")
         opcion=input("\n...Presione cualquier tecla para continuar...")
